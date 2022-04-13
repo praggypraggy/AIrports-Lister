@@ -1,0 +1,239 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="map.js"></script>
+	<link rel="stylesheet" href="map.css" />
+	<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+		integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
+	<script src='https://js.zohostatic.com/maps/v8_7_0/js/zmaps-sdk-min.js'></script>
+	<link rel='stylesheet' type='text/css' href='https://css.zohostatic.com/maps/v8_7_0/styles/zmaps-sdk-min.css' />
+	<style>
+		#MapdivId {
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="mapUI">
+
+
+		<!-- <a href="#" class="floatIcon floatMyLoc">
+			<i class="fa fa-crosshairs my-float"></i>
+		</a>
+		<a href="#" class="floatZoom">
+			<i class="fa fa-plus my-floatt"></i>
+			<i class="fa fa-minus my-floatt"></i>
+		</a> -->
+		<a href="#" class="floatIcon floatSplLoc">
+			<i class="fa fa-map-marker my-float"></i>
+		</a>
+		<div class="body">
+			<div class="iconSec">
+				<div id="searchAndSet">
+					<a href="#" onclick="showSearchBox()" class="floatFlexIcon">
+						<i class="fa fa-search my-float"></i>
+					</a>
+					<a href="#" class="floatFlexIcon">
+						<i class="fa fa-cog my-float"></i>
+					</a>
+				</div>
+
+				<a href="#" class="floatIcon floatLoc" id="floatLoc">
+					<i class="fa fa-map-marker my-float"></i>
+				</a>
+			</div>
+			<div class="scheduleBox" id="_scheduleBox">
+				<div class="dateBox">
+					<h4 id="DATE">Today,14 Dec,2021</h4>
+					<div id="A"><a href="#" onclick="javascript:A()">Change Date</a></div>
+					<button type="button" class="cross" onclick="closeScheduleBox()">X</button>
+				</div>
+				<div class="scheduleTable">
+					<table>
+						<tr>
+							<td class="timeBox">
+								<h4>10:00 AM</h4>
+								<div class="timing"></div>
+							</td>
+							<td>
+								<div class="contentBox">
+									<div class="nameTd">
+										<h4>Delia Nelson</h4>
+									</div>
+									<div class="roleTd">
+										<li><span>Lead</span></li>
+									</div>
+								</div>
+								<br>
+								<div class="addr">126,Nariman Point Road, Bangalore</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="timeBox">
+								<h4>10:30 AM</h4>
+								<div class="timing">10:30 AM-11:30 AM</div>
+							</td>
+							<td>
+								<div class="contentBox">
+									<div class="nameTd">
+
+										<h4>Henrietta Murray</h4>
+									</div>
+									<div class="roleTd">
+										<li><span>Lead</span></li>
+									</div>
+								</div>
+								<br>
+								<div class="addr">Plot No 54, C 6,Rama Road,Bangalore</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="timeBox">
+								<h4>12:30 PM</h4>
+								<div class="timing">12:30 PM-01:25 PM</div>
+							</td>
+							<td>
+								<div class="contentBox">
+									<div class="nameTd">
+
+										<h4>Eva Blair</h4>
+									</div>
+									<div class="roleTd">
+										<li><span>Contact</span></li>
+									</div>
+								</div>
+								<br>
+								<div class="addr">31,Navghar Phatak,Bhayander,Bangalore</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="timeBox">
+								<h4>02:20 PM</h4>
+								<div class="timing"></div>
+							</td>
+							<td>
+								<div class="contentBox">
+									<div class="nameTd">
+										<h4>Helen Kelly</h4>
+									</div>
+									<div class="roleTd">
+										<li><span>Lead</span></li>
+									</div>
+								</div>
+								<br>
+								<div class="addr">No.5,Plot No. 35,Vini Chs Ltd,Bangalore</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+			</div>
+
+			<div class="nameBox">
+				<div class="trackIcon">
+					<label for="Menu">
+						<span onclick="javascript:closeScheduleBox()">
+							<img src="tracking1.png" onmouseover="javascript:showArrowDown()" onmouseout="javascript:hideArrowDown()">
+							<i class="arrow down" id="_arrowDown"></i>
+						</span>
+					</label>
+					<input type="checkbox" id="Menu">
+					<ul class="slide">
+						<a href="#" onclick="javascript:openScheduleBox('Menu')">
+							<li><i class="fa fa-map-marker formIcon"></i>Tracking</li>
+						</a>
+						<a href="#" onclick="javascript:openScheduleBox('Menu')">
+							<li><i class="fa fa-map-marker formIcon"></i>Tracking</li>
+						</a>
+						<a href="#" onclick="javascript:openScheduleBox('Menu')">
+							<li><i class="fa fa-map-marker formIcon"></i>Tracking</li>
+						</a>
+						<a href="#" onclick="javascript:openScheduleBox('Menu')">
+							<li><i class="fa fa-map-marker formIcon"></i>Tracking</li>
+						</a>
+					</ul>
+				</div>
+				<div class="infoBox">
+					<div class="names" id="names">
+						<label for="nameDropdown">
+							<div id="name" class="namesDrop">
+								Mina Robbins<i class="arrowdown" id="_arrowDown"></i>
+							</div>
+						</label>
+						<input type="checkbox" id="nameDropdown" onclick="colorToggle('nameSlide',0)">
+						<div class="nameSlide" id="nameSlide">
+							<h5>NAMES VIEWS</h5>
+							<a href="#" onclick="showName('Mina Robbins','nameDropdown','nameSlide',0)">
+								<li><i>&check;</i>Mina Robbins</li>
+							</a>
+							<a href="#" onclick="showName('Delia Nelson','nameDropdown','nameSlide',1)">
+								<li><i>&check;</i>Delia Nelson</li>
+							</a>
+							<a href="#" onclick="showName('Eva Blair','nameDropdown','nameSlide',2)">
+								<li><i>&check;</i>Eva Blair</li>
+							</a>
+							<a href="#" onclick="showName('Helen Kelly','nameDropdown','nameSlide',3)">
+								<li><i>&check;</i>Helen Kelly</li>
+							</a>
+						</div>
+					</div>
+					<div class="visitLive">
+						<div class="visits">
+							<i class="fas fa-hotel"></i><br>
+							Visits
+						</div>
+						<div class="vertical"></div>
+						<div class="live">
+							<i class="fas fa-location-arrow"></i><br>
+							Live
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="searchBox" id="_searchBox">
+				<form action="/action_page.php">
+					<input type="text" placeholder="Search.." name="search">
+					<button type="submit"><i class="fa fa-search"></i></button>
+				</form>
+			</div>
+			<div class="PoI">
+				<form action="#">
+					<select name="namesDrop" id="_namesDrop">
+						<option value="PointOfInterest">Point of interest</option>
+						<option value="home">home</option>
+					</select>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<div id='MapdivId'></div>
+	<script>
+		var apiKey = 'ZMapsExamplesWeb-73f269cc3db5c26abb9a6b58b33e7452';
+		var zMapsSdk = new ZMapsSDK();
+		zMapsSdk.setApiKey(apiKey);
+
+		zMapsSdk.init(initCallback);
+
+		function initCallback() {
+
+			var map = new ZMap('MapdivId', zMapsSdk);
+
+			map.loadMap();
+
+		}
+
+	</script>
+</body>
+
+</html>

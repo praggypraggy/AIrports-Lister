@@ -1,0 +1,491 @@
+* {
+    font-family: 'Lato';
+}
+
+
+.nameBox {
+    min-width: 310px;
+    position: fixed;
+    width: 27%;
+    height: max-content;
+    background-color: rgba(255, 254, 254, 255);
+    margin: 10px;
+    display: flex;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.trackIcon {
+    margin: 0px;
+}
+
+.trackIcon img {
+    width: max-content;
+    height: 130px;
+    border: 0px solid transparent;
+    border-radius: 10px 0px 0px 10px;
+    cursor: pointer;
+}
+
+.names {
+    align-content: center;
+    padding: 7px 0px 10px 3px;
+}
+
+.namesDrop {
+    padding: 9px;
+    background-color: rgb(236, 240, 250);
+    font-weight: 600;
+    border: transparent;
+    border-radius: 3px;
+    border-right: inset 10px transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-right: 5px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.082);
+
+}
+
+.nameSlide {
+    margin-top: 10px;
+    color: #999;
+    background: white;
+    position: fixed;
+    clear: both;
+    height: 0px;
+    overflow: hidden;
+    transition: height .4s ease;
+    list-style-type: none;
+    border: 0px solid transparent;
+    border-radius: 3px;
+    width: 19.6%;
+    font-size: 0.8em;
+    z-index: 2;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+
+
+}
+.nameSlide h5{
+    padding: 10px;
+    margin: 0px;
+}
+
+.nameSlide li {
+    padding: 10px;
+}
+
+.nameSlide a {
+    text-decoration: none;
+    color: black;
+    width: 192px;
+    font-weight: 600;
+}
+.nameSlide i{
+    padding: 7px 10px 7px 0px;
+    font-size: 0.8em;
+    /* color: white; */
+}
+.nameSlide li:hover {
+    color: #177dc1;
+    background-color: rgb(236, 240, 250);
+}
+#nameDropdown {
+    position: absolute;
+    opacity: 0;
+    height: 0px;
+}
+#nameDropdown label{
+    width: 316px;
+}
+
+#nameDropdown:checked+.nameSlide {
+    height: 180px;
+}
+
+.trackIcon ul {
+    padding: 0px;
+}
+
+.names ul {
+    padding: 0px;
+    z-index: 2;
+}
+
+.trackIcon span i {
+    position: fixed;
+    top: 122px;
+    left: 57px;
+    display: none;
+}
+
+
+.formIcon {
+    padding: 7px;
+}
+
+.arrow {
+    border: solid rgb(255, 255, 255);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 4px;
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.arrowdown{
+    position:absolute;
+    top: 25px;
+    right: 30px;
+    border: solid rgb(0, 0, 0);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.infoBox {
+    width: 100%;
+    margin: 5px;
+}
+
+.vertical {
+    border-left: 1px solid rgba(0, 0, 0, 0.14);
+    height: 50px;
+    margin: 0px 10px;
+}
+
+.visitLive {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: small;
+}
+
+.visitLive i {
+
+    font-size: 2.2em;
+}
+
+.visits {
+    color: rgba(4, 138, 255, 255);
+    cursor: pointer;
+}
+
+.live {
+    color: rgb(162, 163, 163);
+    cursor: pointer;
+}
+
+.slide {
+    background: white;
+    position: fixed;
+    clear: both;
+    height: 0px;
+    overflow: hidden;
+    transition: height .4s ease;
+    list-style-type: none;
+    border: 0px solid transparent;
+    border-radius: 3px;
+    min-width: 192px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+
+}
+
+.slide li {
+    padding: 10px;
+}
+
+.slide a {
+    text-decoration: none;
+    color: black;
+    width: 192px;
+}
+
+.slide li:hover {
+    color: #177dc1;
+    background-color: rgb(236, 240, 250);
+}
+
+
+#Menu {
+    position: absolute;
+    opacity: 0;
+    height: 0px;
+}
+
+#Menu:checked+.slide {
+    height: 195px;
+    min-width: 192px;
+}
+
+.scheduleBox {
+    display: none;
+    position: fixed;
+    min-width: 310px;
+    width: 27%;
+    top: 150px;
+    height: max-content;
+    padding-bottom: 5px;
+    background-color: rgba(255, 254, 254, 255);
+    margin: 10px;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    z-index: 1;
+
+}
+
+
+.cross {
+    cursor: pointer;
+    background: transparent;
+    border: 0px solid transparent;
+    font-size: 1.25em;
+    font-weight: 100;
+    color: #999;
+}
+
+.dateBox {
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dateBox a {
+
+    text-transform: none;
+    color: rgb(37, 148, 255);
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+.dateBox h4 {
+    display: inline;
+    color: rgba(0, 0, 0, 0.838);
+    margin: 0px;
+    width: 65%;
+    font-weight: 650;
+    font-size: 0.95em;
+}
+
+.timing {
+    padding-top: 7px;
+    font-size: 0.75em;
+    width: max-content;
+}
+
+.scheduleTable table {
+    border-spacing: 0px;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.14);
+
+}
+
+.scheduleTable td {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-left: 1px solid rgba(0, 0, 0, 0.14);
+    border-collapse: collapse;
+    color: rgb(151, 151, 151);
+    font-size: small;
+}
+
+.scheduleTable td h4 {
+    display: inline;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.838);
+    text-align: center;
+    font-weight: 650;
+    font-size: 1em;
+}
+
+.addr {
+    padding-top: 7px;
+    font-size: 0.88em !important;
+}
+
+.scheduleTable li {
+
+    font-size: 0.75em;
+}
+
+.scheduleTable li span {
+    position: relative;
+    left: -5px;
+}
+
+.scheduleTable span {
+    font-size: 1.33em;
+}
+
+.timebox {
+    padding: 10px 5px 10px 20px !important;
+    width: 30%;
+}
+
+.contentBox {
+    display: inline-flex;
+}
+
+.contentBox span {
+    padding-top: 7px;
+}
+
+.roleTd {
+    margin-left: 7px;
+}
+
+#searchAndSet{
+    position: fixed;
+    top: 25px;;
+    right : 25px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.floatIcon {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(45, 45, 45);
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.floatFlexIcon {
+    width: 35px;
+    height: 35px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(45, 45, 45);
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.floatSearch {
+    top: 25px;
+    right: 70px;
+}
+
+.floatWeb {
+    top: 25px;
+    right: 25px;
+}
+
+.floatLoc {
+    top: 70px;
+    right: 25px;
+}
+
+
+.floatMyLoc {
+    bottom: 160px;
+    right: 20px;
+    display: none;
+}
+
+.ZMaps-ctrl-group{
+    bottom: 70px !important;
+}
+.current-location-icon{
+    bottom: 160px !important;
+}
+.floatZoom {
+    position: fixed;
+    width: 35px;
+    height: 80px;
+    bottom: 70px;
+    right: 25px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(45, 45, 45);
+    border-radius: 50px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    display: none;
+    z-index: 1;
+}
+
+.floatSplLoc {
+    bottom: 33px;
+    right: 25px;
+    background-color: #177dc1
+}
+
+.my-float {
+    margin-top: 10px;
+}
+
+.my-floatt {
+    margin-top: 17px;
+}
+
+
+
+.PoI {
+    position: fixed;
+    bottom: 20px;
+    right: 70px;
+    z-index: 1;
+}
+
+.PoI select {
+    padding: 5px;
+    border: 0px solid transparent;
+    border-radius: 3px;
+    border-right: inset 7px transparent;
+    box-sizing: border-box;
+    font-weight: 570;
+}
+
+.hel {
+    background-color: white;
+}
+
+.hel input {
+    max-width: 68%;
+}
+
+.hel form {
+    margin: 0px;
+    opacity: 1;
+}
+
+#A {
+    text-decoration: underline;
+    min-height: 23px;
+    padding-top: 10px;
+}
+.searchBox{
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    left: 500px;
+    width: 500px;
+    display: none;
+}
+
+.searchBox form{
+    width: 500px;
+}
+.searchBox input{
+    width: 80%;
+    height: 50px;
+}
+.searchBox button{
+    height: 50px;
+    width: 50px;
+}
