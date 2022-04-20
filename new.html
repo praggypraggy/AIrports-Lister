@@ -1,12 +1,14 @@
 <html lang="en">
 
 <head>
+	<script src='osmtogeojson.js'></script>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<script src="map.js"></script>
 	<script src="coords.js"></script>
+	<script src="query.js"></script>
 	<link rel="stylesheet" href="map.css" />
 	<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -258,49 +260,66 @@
 						zMapsShape.setShapeOpacity(1);
 						
 						map.addShape(zMapsShape);
+						if(j===1){
+							map.fitToShapes(zMapsShape, 20);
 
+						}
 						Marker = new ZMarker('id'+String(j), coordinateArray[0][0], coordinateArray[0][1]);
 						map.addMarker(Marker);
 					}
         });
 				map.onLoad(function ()
         {
-					var features = test();
-					var MarkersId = [];
-					var zMapsShapesId = [];
-          var coordinateArray;
-					var zMapsShape;
-          var Marker;
-					for (var i = 0; i<features.length;i++){
-						if(features[i].geometry.type === "Point"){
-							Marker = new ZMarker('id'+String(i), features[i].geometry.coordinates[1], features[i].geometry.coordinates[0]);
-							map.addMarker(Marker);
-						}
-						else{
-							Marker = new ZMarker('id'+String(i), features[i].geometry.coordinates[0][0][1], features[i].geometry.coordinates[0][0][0]);
-							map.addMarker(Marker);
-							for (let j = 0; j < features[i].geometry.coordinates.length; j++) {
-								coordinateArray = features[i].geometry.coordinates[j];
-								console.log(coordinateArray);
-								for (let k = 0; k < coordinateArray.length; k++) {
-									let temp = coordinateArray[k][0];
-									coordinateArray[k][0] = coordinateArray[k][1];
-									coordinateArray[k][1] = temp;
-								}
-								zMapsShape = new ZMapsShape('shapeId'+String(i)+'_'+String(j), ZMapsShapeType.Polygon);
-								zMapsShape.setCoordinatesArray(coordinateArray);
-								zMapsShape.setFill(true);
-								zMapsShape.setStrokeColor('black');
-								zMapsShape.setFillColor('rgba(66, 153, 245,0.3)');
-								zMapsShape.setStrokeWidth(2);
-								zMapsShape.setShapeOpacity(1);
-								
-								map.addShape(zMapsShape);
-								
-							}
-						}
+					var cod;
 
-					}
+					fetch("https://overpass-api.de/api/interpreterr", bruh())
+						.then(response => response.text())
+						.then(result => {
+							console.log(result)
+							cod = result
+							cod = osmtogeojson(cod);
+							console.log(cod.features);
+							console.log("hello");
+							var features = cod;
+							var MarkersId = [];
+							var zMapsShapesId = [];
+							var coordinateArray;
+							var zMapsShape;
+							var Marker;
+							for (var i = 0; i<features.length;i++){
+								if(features[i].geometry.type === "Point"){
+									Marker = new ZMarker('id'+String(i), features[i].geometry.coordinates[1], features[i].geometry.coordinates[0]);
+									map.addMarker(Marker);
+								}
+								else{
+									Marker = new ZMarker('id'+String(i), features[i].geometry.coordinates[0][0][1], features[i].geometry.coordinates[0][0][0]);
+									map.addMarker(Marker);
+									for (let j = 0; j < features[i].geometry.coordinates.length; j++) {
+										coordinateArray = features[i].geometry.coordinates[j];
+										// console.log(coordinateArray);
+										for (let k = 0; k < coordinateArray.length; k++) {
+											let temp = coordinateArray[k][0];
+											coordinateArray[k][0] = coordinateArray[k][1];
+											coordinateArray[k][1] = temp;
+										}
+										zMapsShape = new ZMapsShape('shapeId'+String(i)+'_'+String(j), ZMapsShapeType.Polygon);
+										zMapsShape.setCoordinatesArray(coordinateArray);
+										zMapsShape.setFill(true);
+										zMapsShape.setStrokeColor('black');
+										zMapsShape.setFillColor('rgba(66, 153, 245,0.3)');
+										zMapsShape.setStrokeWidth(2);
+										zMapsShape.setShapeOpacity(1);
+										
+										map.addShape(zMapsShape);
+										
+									}
+								}
+
+							}
+							console.log("result")
+						})
+						.catch(error => console.log('error', error));
+					
         });
         map.onnLoad(function ()
         {
