@@ -66,7 +66,8 @@
 
 
 }
-.nameSlide h5{
+
+.nameSlide h5 {
     padding: 10px;
     margin: 0px;
 }
@@ -81,21 +82,25 @@
     width: 192px;
     font-weight: 600;
 }
-.nameSlide i{
+
+.nameSlide i {
     padding: 7px 10px 7px 0px;
     font-size: 0.8em;
     /* color: white; */
 }
+
 .nameSlide li:hover {
     color: #177dc1;
     background-color: rgb(236, 240, 250);
 }
+
 #nameDropdown {
     position: absolute;
     opacity: 0;
     height: 0px;
 }
-#nameDropdown label{
+
+#nameDropdown label {
     width: 316px;
 }
 
@@ -135,8 +140,9 @@
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
 }
-.arrowdown{
-    position:absolute;
+
+.arrowdown {
+    position: absolute;
     top: 25px;
     right: 30px;
     border: solid rgb(0, 0, 0);
@@ -146,6 +152,7 @@
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
 }
+
 .infoBox {
     width: 100%;
     margin: 5px;
@@ -339,10 +346,63 @@
     margin-left: 7px;
 }
 
-#searchAndSet{
+
+.countryBox {
+    overflow-y: scroll;
+    height: 400px;
+    display: none;
     position: fixed;
-    top: 25px;;
-    right : 25px;
+    min-width: 290px;
+    width: calc(27% - 20px);
+    top: 150px;
+    padding: 10px;
+    background-color: rgba(255, 254, 254, 255);
+    margin: 10px;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.countryBox table{
+    border-collapse: separate;
+    border-spacing: 0px 10px;
+    width: 100%;
+}
+
+.countryBox tr {
+
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.countryBox thead{
+    position: sticky;
+    inset-block-start: 0;
+    background-color: white;
+}
+.countryBox thead tr:hover{
+    color: black;
+    background-color: white ; 
+    cursor:default;
+}
+.countryBox tr:hover {
+
+    color: #177dc1;
+    background-color: rgb(236, 240, 250);
+}
+.countryBox td{
+
+}
+.nOfCountries{
+    text-align: center;
+}
+
+#searchAndSet {
+    position: fixed;
+    top: 25px;
+    ;
+    right: 25px;
     width: 80px;
     height: 80px;
     display: flex;
@@ -395,12 +455,14 @@
     display: none;
 }
 
-.ZMaps-ctrl-group{
+.ZMaps-ctrl-group {
     bottom: 70px !important;
 }
-.current-location-icon{
+
+.current-location-icon {
     bottom: 160px !important;
 }
+
 .floatZoom {
     position: fixed;
     width: 35px;
@@ -469,7 +531,8 @@
     min-height: 23px;
     padding-top: 10px;
 }
-.searchBox{
+
+.searchBox {
     position: fixed;
     z-index: 1;
     top: 20px;
@@ -478,14 +541,16 @@
     display: none;
 }
 
-.searchBox form{
+.searchBox form {
     width: 500px;
 }
-.searchBox input{
+
+.searchBox input {
     width: 80%;
     height: 50px;
 }
-.searchBox button{
+
+.searchBox button {
     height: 50px;
     width: 50px;
 }
