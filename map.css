@@ -60,6 +60,7 @@
     border: 0px solid transparent;
     border-radius: 3px;
     width: 19.6%;
+    min-width: 207;
     font-size: 0.8em;
     z-index: 2;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
@@ -356,6 +357,7 @@
     width: calc(27% - 20px);
     top: 150px;
     padding: 10px;
+    padding-top: 0px;
     background-color: rgba(255, 254, 254, 255);
     margin: 10px;
     border: 0px solid transparent;
@@ -363,7 +365,7 @@
     z-index: 1;
 }
 
-.countryBox table{
+.countryBox table {
     border-collapse: separate;
     border-spacing: 0px 10px;
     width: 100%;
@@ -376,25 +378,27 @@
     cursor: pointer;
 }
 
-.countryBox thead{
+.countryBox thead {
     position: sticky;
     inset-block-start: 0;
     background-color: white;
 }
-.countryBox thead tr:hover{
+
+.countryBox thead tr:hover {
     color: black;
-    background-color: white ; 
-    cursor:default;
+    background-color: white;
+    cursor: default;
 }
+
 .countryBox tr:hover {
 
     color: #177dc1;
     background-color: rgb(236, 240, 250);
 }
-.countryBox td{
 
-}
-.nOfCountries{
+.countryBox td {}
+
+.nOfCountries {
     text-align: center;
 }
 
@@ -495,8 +499,6 @@
     margin-top: 17px;
 }
 
-
-
 .PoI {
     position: fixed;
     bottom: 20px;
@@ -553,4 +555,118 @@
 .searchBox button {
     height: 50px;
     width: 50px;
+}
+
+.pin {
+    -webkit-animation-name: pin;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 50% 0;
+    background: #312783;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 50%;
+    margin: -20px 0 0 -20px;
+    z-index: 3;
+}
+
+.pin:after {
+    content: '';
+    width: 14px;
+    height: 14px;
+    margin: 8px 0 0 8px;
+    background: #ffe388;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.pulse {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    height: 14px;
+    width: 14px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: 11px 0px 0px -12px;
+    transform: rotateX(55deg);
+    z-index: 2;
+}
+
+.pulse:after {
+    content: "";
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    margin: -13px 0 0 -13px;
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0;
+    box-shadow: 0 0 1px 2px #312783;
+}
+
+@-webkit-keyframes pulsate {
+    0% {
+        -webkit-transform: scale(0.1, 0.1);
+        transform: scale(0.1, 0.1);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1.2, 1.2);
+        transform: scale(1.2, 1.2);
+    }
+}
+
+@-webkit-keyframes bounce {
+    0% {
+        -webkit-transform: translateY(-2000px) rotate(-45deg);
+
+    }
+
+    60% {
+        -webkit-transform: translateY(30px) rotate(-45deg);
+    }
+
+    80% {
+        -webkit-transform: translateY(-10px) rotate(-45deg);
+    }
+
+    100% {
+        -webkit-transform: translateY(0) rotate(-45deg);
+    }
+}
+
+@-webkit-keyframes pin {
+    100% {
+        top: 45%;
+        bottom: 60px;
+    }
+}
+
+.loadingBox {
+    color: #312783;
+    right: 50%;
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width: 240px;
+    height: 110px;
+    margin-top: -55px; /*set to a negative number 1/2 of your height*/
+    margin-left: -120px; /*set to a negative number 1/2 of your width*/
+    z-index: 3;  
+    display: none; 
+}
+
+.loadingBox h3 {
+    margin-top: 70px;
+    text-align: center;
 }
