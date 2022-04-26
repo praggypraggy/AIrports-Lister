@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Map Document</title>
 	<script src="map.js"></script>
 	<script src="coords.js"></script>
 	<script src="query.js"></script>
@@ -136,11 +136,14 @@
 			<div class="countryBox" id="_countryBox">
 				<div class="countryTable" id="_countryTable">
 					<table>
-						<thead>
+						<thead class='nOfCountries'>
+							<td>
+								<h3>SlNo. </h3>
+							</td>
 							<td>
 								<h3>Countries</h3>
 							</td>
-							<td class='nOfCountries'>
+							<td>
 								<h3>No. of Airports</h3>
 							</td>
 						</thead>
@@ -264,8 +267,10 @@
 				var idCode;
 				countryCode(country)
 					.then((idCode) => {
-						bruh(idCode + 3600000000, "aeroway", "terminal")
+						airports(idCode + 3600000000, '["aeroway"="aerodrome"]["iata"]')
+						//airports(idCode + 3600000000, '["aeroway"="aerodrome"]')
 							.then((data) => {
+								console.log(data);
 								features = osmtogeojson(data).features;
 								for (var i = 0; i < features.length; i++) {
 									if (features[i].geometry.type === "Point") {

@@ -351,11 +351,11 @@
 .countryBox {
     overflow-y: scroll;
     height: 400px;
-    display: none;
+    /* display: none; */
     position: fixed;
     min-width: 290px;
     width: calc(27% - 20px);
-    top: 150px;
+    /* top: 150px; */
     padding: 10px;
     padding-top: 0px;
     background-color: rgba(255, 254, 254, 255);
@@ -365,6 +365,9 @@
     z-index: 1;
 }
 
+.countriesHeader{
+    padding: 20px;
+}
 .countryBox table {
     border-collapse: separate;
     border-spacing: 0px 10px;
@@ -396,7 +399,9 @@
     background-color: rgb(236, 240, 250);
 }
 
-.countryBox td {}
+.countryBox td {
+    text-align: center;
+}
 
 .nOfCountries {
     text-align: center;
@@ -424,6 +429,21 @@
     text-align: center;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
     z-index: 1;
+}
+
+.backBtn{
+    align-items: center;
+    display: block; 
+    top: 10px;
+    width: 35px;
+    height: 35px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(45, 45, 45);
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
 }
 
 .floatFlexIcon {
