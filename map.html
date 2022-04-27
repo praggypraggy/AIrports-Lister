@@ -4,11 +4,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Map Document</title>
+	<title>Document</title>
 	<script src="map.js"></script>
-	<script src="coords.js"></script>
-	<script src="query.js"></script>
-	<script src="osmtogeojson.js"></script>
 	<link rel="stylesheet" href="map.css" />
 	<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -26,6 +23,15 @@
 
 <body>
 	<div class="mapUI">
+
+
+		<!-- <a href="#" class="floatIcon floatMyLoc">
+			<i class="fa fa-crosshairs my-float"></i>
+		</a>
+		<a href="#" class="floatZoom">
+			<i class="fa fa-plus my-floatt"></i>
+			<i class="fa fa-minus my-floatt"></i>
+		</a> -->
 		<a href="#" class="floatIcon floatSplLoc">
 			<i class="fa fa-map-marker my-float"></i>
 		</a>
@@ -44,8 +50,6 @@
 					<i class="fa fa-map-marker my-float"></i>
 				</a>
 			</div>
-
-
 			<div class="scheduleBox" id="_scheduleBox">
 				<div class="dateBox">
 					<h4 id="DATE">Today,14 Dec,2021</h4>
@@ -130,31 +134,7 @@
 						</tr>
 					</table>
 				</div>
-
 			</div>
-
-			<div class="countryBox" id="_countryBox">
-				<div class="countryTable" id="_countryTable">
-					<table>
-						<thead class='nOfCountries'>
-							<td>
-								<h3>SlNo. </h3>
-							</td>
-							<td>
-								<h3>Countries</h3>
-							</td>
-							<td>
-								<h3>No. of Airports</h3>
-							</td>
-						</thead>
-						<tbody id="_countryTbody">
-
-						</tbody>
-					</table>
-
-				</div>
-			</div>
-
 			<div class="nameBox">
 				<div class="trackIcon">
 					<label for="Menu">
@@ -168,8 +148,8 @@
 						<a href="#" onclick="javascript:openBox('_scheduleBox')">
 							<li><i class="fa fa-map-marker formIcon"></i>Tracking</li>
 						</a>
-						<a href="#" onclick="javascript:openBox('_countryBox')">
-							<li><i class="fa fa-map-marker formIcon"></i>Countries</li>
+						<a href="#" onclick="javascript:openBox('_scheduleBox')">
+							<li><i class="fa fa-map-marker formIcon"></i>Tracking</li>
 						</a>
 						<a href="#" onclick="javascript:openBox('_scheduleBox')">
 							<li><i class="fa fa-map-marker formIcon"></i>Tracking</li>
@@ -218,21 +198,12 @@
 
 
 			</div>
-
-
 			<div class="searchBox" id="_searchBox">
 				<form action="/action_page.php">
 					<input type="text" placeholder="Search.." name="search">
 					<button type="submit"><i class="fa fa-search"></i></button>
 				</form>
 			</div>
-
-			<div class="loadingBox" id="_loadingBox">
-				<div class="pin" id="pin"></div>
-				<div class="pulse" id="pulse"></div>
-				<h3 id="_loadingScript"></h3>
-			</div>
-
 			<div class="PoI">
 				<form action="#">
 					<select name="namesDrop" id="_namesDrop">
@@ -241,8 +212,6 @@
 					</select>
 				</form>
 			</div>
-
-
 		</div>
 
 	</div>
@@ -254,53 +223,12 @@
 
 		zMapsSdk.init(initCallback);
 
-		function showAirports(country) {
-			var map = new ZMap('MapdivId', zMapsSdk);
-			var country;
-			map.loadMap();
-			map.loadMap();
-			map.onLoad(function () {
-				openloading('fetching nodes from API...');
-				var features;
-				var Markers = [];
-				var latLonArray = [];
-				var idCode;
-				countryCode(country)
-					.then((idCode) => {
-						airports(idCode + 3600000000, '["aeroway"="aerodrome"]["iata"]')
-						//airports(idCode + 3600000000, '["aeroway"="aerodrome"]')
-							.then((data) => {
-								console.log(data);
-								features = osmtogeojson(data).features;
-								for (var i = 0; i < features.length; i++) {
-									if (features[i].geometry.type === "Point") {
-										latLonArray.push([features[i].geometry.coordinates[1], features[i].geometry.coordinates[0]]);
-									}
-									else {
-										latLonArray.push([features[i].geometry.coordinates[0][0][1], features[i].geometry.coordinates[0][0][0]]);
-									}
-								}
-								for (var i = 0; i < latLonArray.length; i++) {
-									Markers[i] = new ZMarker(i, latLonArray[i][0], latLonArray[i][1]);
-									Markers[i].setCustomInfoWindowView('View');
-								}
-								var ZMapsMarkerOptionCluster = new ZMapsMarkerOption(ZMapsMarkerType.Cluster);
-								var response = map.addMarkers('ClusterId', Markers, ZMapsMarkerOptionCluster);
-
-								closeloading();
-							});
-					});
-
-
-			});
-
-		}
-
 		function initCallback() {
 
 			var map = new ZMap('MapdivId', zMapsSdk);
-			var country;
+
 			map.loadMap();
+
 		}
 
 	</script>

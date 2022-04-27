@@ -1,63 +1,57 @@
 <html>
 
-<head>
-  <script src='https://js.zohostatic.com/maps/v8_7_0/js/zmaps-sdk-min.js'></script>
-  <script src='coords.js'></script>
-  <script src='query.js'></script>
-  <script src='osmtogeojson.js'></script>
-  <link rel='stylesheet' type='text/css' href='https://css.zohostatic.com/maps/v8_7_0/styles/zmaps-sdk-min.css' />
-  <style>
-    #MapdivId {
-      height: 100%;
-      width: 100%;
-    }
-  </style>
-</head>
+  <head>
+    <script src='https://js.zohostatic.com/maps/v8_7_0/js/zmaps-sdk-min.js'></script>
+    <link rel='stylesheet' type='text/css'
+      href='https://css.zohostatic.com/maps/v8_7_0/styles/zmaps-sdk-min.css' />
+    <style>
+      #MapdivId {
+        height: 100%;
+        width: 100%;
+      }
 
-<body>
-  <div id='MapdivId'></div>
-  <script>
-    var apiKey = 'ZMapsExamplesWeb-73f269cc3db5c26abb9a6b58b33e7452';
-    var zMapsSdk = new ZMapsSDK();
-    zMapsSdk.setApiKey(apiKey);
+    </style>
+  </head>
 
-    zMapsSdk.init(initCallback);
+  <body>
+    <div id='MapdivId'></div>
+    <script>
+      var apiKey = 'ZMapsExamplesWeb-73f269cc3db5c26abb9a6b58b33e7452';
+      var zMapsSdk = new ZMapsSDK();
+      zMapsSdk.setApiKey(apiKey);
 
-    function initCallback() {
+      zMapsSdk.init(initCallback);
 
-      var map = new ZMap('MapdivId', zMapsSdk);
+      function initCallback()
+      {
 
-      map.loadMap();
+        var map = new ZMap('MapdivId', zMapsSdk);
 
-      map.onLoad(function () {
-        var features;
-        var Markers = [];
-        var latLonArray = [];
-        bruh()
-          .then((data) => {
-            features = osmtogeojson(data).features;
-            for (var i = 0; i < features.length; i++) {
-              if (features[i].geometry.type === "Point") {
-                latLonArray.push([features[i].geometry.coordinates[1], features[i].geometry.coordinates[0]]);
-              }
-              else {
-                latLonArray.push([features[i].geometry.coordinates[0][0][1], features[i].geometry.coordinates[0][0][0]]);
-              }
-            }
-            console.log(features);
-            for (var i = 0; i < latLonArray.length; i++) {
-              Markers[i] = new ZMarker(i, latLonArray[i][0], latLonArray[i][1]);
-              Markers[i].setCustomInfoWindowView('View');
-            }
-						var ZMapsMarkerOptionHeatmap = new ZMapsMarkerOption(ZMapsMarkerType.HeatMap);
-          var response = map.addMarkers('heatmapId', Markers, ZMapsMarkerOptionHeatmap);
+        map.loadMap();
 
-          });
-      });
+        map.onLoad(function ()
+        {
 
-    }
+          var coordinateArray = [12.846065688300698, 80.04103940397073];
+          var zMapsShape = new ZMapsShape('shapeId', ZMapsShapeType.Polygon);
+          zMapsShape.setCoordinatesArray(coordinateArray);
 
-  </script>
-</body>
+
+          zMapsShape.setFill(true);
+          zMapsShape.setStrokeColor('black');
+          zMapsShape.setFillColor('rgba(66, 153, 245,0.3)');
+          zMapsShape.setStrokeWidth(2);
+          zMapsShape.setShapeOpacity(1);
+
+          map.addShape(zMapsShape);
+
+          map.fitToShapes(zMapsShape, 20);
+
+        });
+
+      }
+
+    </script>
+  </body>
 
 </html>

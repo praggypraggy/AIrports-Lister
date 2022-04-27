@@ -407,6 +407,13 @@
     text-align: center;
 }
 
+#_countryName{
+    text-align: center;
+}
+.airportContent{
+    display: none;
+}
+
 #searchAndSet {
     position: fixed;
     top: 25px;

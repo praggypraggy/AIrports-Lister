@@ -134,8 +134,7 @@
 			</div>
 
 			<div class="countryBox" id="_countryBox">
-				<div class="countryTable">
-
+				<div class="countryTable" id="_countryTable">
 					<table>
 						<thead class='nOfCountries'>
 							<td>
@@ -155,32 +154,32 @@
 
 				</div>
 				<div class="airportContent" id="_airportContent">
-					<h3 id="_countryName"></h3>
+					<h1 id="_countryName"></h1>
 					<div class="airportTable">
 						<table>
 							<thead class='nOfCountries'>
 								<td>
 									<h3>
-										<a href="#" class="backBtn">
-										<i class="fa fa-arrow-left my-float"></i>
-									</a>
+										<a href="#" onclick="printCountryTable()" class="backBtn">
+											<i class="fa fa-arrow-left my-float"></i>
+										</a>
 									</h3>
-									
+
 								</td>
 								<td>
-									<h3>Airport</h3>
+									<h3>Airports</h3>
 								</td>
 								<td>
 									<h3>IATA Code</h3>
 								</td>
 							</thead>
 							<tbody id="_airporttBody">
-	
+
 							</tbody>
 						</table>
 					</div>
 				</div>
-				
+
 			</div>
 
 			<!-- <div class="nameBox"> -->
@@ -278,54 +277,12 @@
 	<div id='MapdivId'></div>
 	<script>
 		// window.onload(printCountryTable());
+		var features;
 		var apiKey = 'ZMapsExamplesWeb-73f269cc3db5c26abb9a6b58b33e7452';
 		var zMapsSdk = new ZMapsSDK();
 		zMapsSdk.setApiKey(apiKey);
 
 		zMapsSdk.init(initCallback);
-
-		function showAirports(country) {
-			
-			var map = new ZMap('MapdivId', zMapsSdk);
-			var country;
-			map.loadMap();
-			map.loadMap();
-			map.onLoad(function () {
-				openloading('fetching nodes from API...');
-				var features;
-				var Markers = [];
-				var latLonArray = [];
-				var idCode;
-				countryCode(country)
-					.then((idCode) => {
-						airports(idCode + 3600000000, '["aeroway"="aerodrome"]["iata"]')
-							//airports(idCode + 3600000000, '["aeroway"="aerodrome"]')
-							.then((data) => {
-								console.log(data);
-								features = osmtogeojson(data).features;
-								for (var i = 0; i < features.length; i++) {
-									if (features[i].geometry.type === "Point") {
-										latLonArray.push([features[i].geometry.coordinates[1], features[i].geometry.coordinates[0]]);
-									}
-									else {
-										latLonArray.push([features[i].geometry.coordinates[0][0][1], features[i].geometry.coordinates[0][0][0]]);
-									}
-								}
-								for (var i = 0; i < latLonArray.length; i++) {
-									Markers[i] = new ZMarker(i, latLonArray[i][0], latLonArray[i][1]);
-									Markers[i].setCustomInfoWindowView('View');
-								}
-								var ZMapsMarkerOptionCluster = new ZMapsMarkerOption(ZMapsMarkerType.Cluster);
-								var response = map.addMarkers('ClusterId', Markers, ZMapsMarkerOptionCluster);
-
-								closeloading();
-							});
-					});
-
-
-			});
-
-		}
 
 		function initCallback() {
 
@@ -333,6 +290,86 @@
 			var country;
 			map.loadMap();
 			printCountryTable();
+		}
+
+		function showAirport(coordinateArray) {
+			console.log(coordinateArray);
+			try{
+				console.log(typeof(coordinateArray[0][0]));
+				for (let i = 0; i < coordinateArray.length; i++) {
+					for (let k = 0; k < coordinateArray[i].length; k++) {
+						let temp = coordinateArray[i][k][0];
+						coordinateArray[i][k][0] = coordinateArray[i][k][1];
+						coordinateArray[i][k][1] = temp;
+					}
+					showInZoom(coordinateArray[i]);
+				}
+			}
+			catch{
+				var temp = [coordinateArray[1], coordinateArray[0]];
+				coordinateArray = [temp];
+				showInZoom(coordinateArray);
+			}
+
+		}
+
+		function showInZoom(coordinateArray) {
+
+			var map = new ZMap('MapdivId', zMapsSdk);
+			map.loadMap();
+			map.onLoad(function () {
+
+				
+				var zMapsShape = new ZMapsShape('shapeId', ZMapsShapeType.Polygon);
+				zMapsShape.setCoordinatesArray(coordinateArray);
+
+				zMapsShape.setFill(true);
+				zMapsShape.setStrokeColor('black');
+				zMapsShape.setFillColor('rgba(66, 153, 245,0.3)');
+				zMapsShape.setStrokeWidth(2);
+				zMapsShape.setShapeOpacity(1);
+
+				map.addShape(zMapsShape);
+
+				map.fitToShapes(zMapsShape, 20);
+
+			});
+
+		}
+
+		function showAirports(country) {
+			var map = new ZMap('MapdivId', zMapsSdk);
+			var country;
+			map.loadMap();
+			map.loadMap();
+			map.onLoad(function () {
+				openloading('fetching nodes from API...');
+				var Markers = [];
+				var latLonArray = [];
+				var idCode;
+				features = osmtogeojson(hardCodeData()).features;
+				console.log(features);
+				printAirportTable(country, features);
+				console.log()
+				for (var i = 0; i < features.length; i++) {
+					if (features[i].geometry.type === "Point") {
+						latLonArray.push([features[i].geometry.coordinates[1], features[i].geometry.coordinates[0]]);
+					}
+					else {
+						latLonArray.push([features[i].geometry.coordinates[0][0][1], features[i].geometry.coordinates[0][0][0]]);
+					}
+				}
+				for (var i = 0; i < latLonArray.length; i++) {
+					Markers[i] = new ZMarker(i, latLonArray[i][0], latLonArray[i][1]);
+					Markers[i].setCustomInfoWindowView('View');
+				}
+				var ZMapsMarkerOptionCluster = new ZMapsMarkerOption(ZMapsMarkerType.Cluster);
+				var response = map.addMarkers('ClusterId', Markers, ZMapsMarkerOptionCluster);
+
+				closeloading();
+
+			});
+
 		}
 
 	</script>

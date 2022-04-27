@@ -17,6 +17,8 @@ function A() {
   document.getElementById("A").innerHTML = x;
 }
 function printCountryTable() {
+  document.getElementById("_airportContent").style.display = "none";
+  document.getElementById("_countryTable").style.display = "block";
   
   var count = [11, 0, 4, 49, 0, 0, 30, 1, 0, 3, 118, 10, 0, 255, 32, 12, 23, 2, 13, 1, 13, 25, 18, 4, 2, 4, 39, 0, 9, 7, 0, 388, 1, 2, 29, 4, 1, 9, 11, 258, 12, 5, 3, 7, 55, 460, 0, 0, 104, 0, 33, 0, 5, 22, 13, 17, 47, 0, 10, 20, 34, 1, 13, 13, 26, 41, 2, 9, 7, 9, 18, 2, 2, 22, 34, 541, 0, 0, 0, 15, 1, 10, 306, 10, 3, 58, 24, 2, 0, 0, 6, 4, 8, 2, 6, 6, 0, 0, 10, 0, 23, 24, 205, 214, 87, 20, 50, 1, 18, 168, 4, 146, 4, 5, 41, 29, 12, 10, 35, 5, 10, 16, 11, 2, 3, 17, 24, 0, 5, 3, 0, 2, 15, 8, 61, 18, 9, 5, 1, 0, 8, 5, 0, 132, 0, 0, 1, 23, 3, 1, 39, 17, 40, 16, 1, 23, 56, 0, 59, 9, 14, 40, 2, 0, 0, 121, 21, 50, 3, 0, 31, 71, 13, 41, 118, 0, 71, 35, 0, 10, 0, 35, 415, 3, 0, 2, 3, 2, 0, 0, 7, 3, 1, 2, 58, 16, 13, 3, 2, 11, 0, 13, 3, 3, 9, 52, 0, 13, 112, 6, 16, 10, 0, 3, 69, 56, 5, 29, 9, 25, 58, 11, 4, 0, 7, 3, 37, 83, 26, 3, 1, 5, 52, 54, 172, 0, 0, 11, 25, 19, 58, 34, 2, 0, 0, 0, 12, 12, 10];
   var countries = [
@@ -285,16 +287,29 @@ function printCountryTable() {
 }
 
 
-function printAirportTable() {
-  
+function printAirportTable(countryName , features) {
+  document.getElementById("_airportContent").style.display = "block";
+  document.getElementById("_countryTable").style.display = "none";
+  document.getElementById("_countryName").innerHTML = countryName;
   var apnd = document.getElementById("_airporttBody");
+  var airportName;
   apnd.innerHTML = ``;
-  for (var i = 0; i < countries.length; i++) {
+  for (var i = 0; i < features.length; i++) {
+    
+    if(features[i].properties["name:en"]===features[i].properties.name || features[i].properties["name:en"]===undefined)
+      airportName = features[i].properties.name
+    else
+      airportName = 
+        features[i].properties["name:en"] +
+        `<br>` +
+        features[i].properties.name;
     apnd.innerHTML += `
-    <tr onclick="showAirports('`+ countries[i].name + `')">
+    <tr onclick="showAirport(features[`+i+`].geometry.coordinates)">
       <td>`+ parseInt(i+1) + `</td>
-      <td>`+ countries[i].dName + `</td>
-      <td class='nOfCountries'>`+count[i]+`</td>
+      <td>
+        `+ airportName + `
+      </td>
+      <td class='nOfCountries'>`+features[i].properties.iata+`</td>
     </tr>
     `;
   }
