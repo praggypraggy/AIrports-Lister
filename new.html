@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>New Document</title>
-	<script src="map.js"></script>
+	<script src="Airport.js"></script>
 	<script src="coords.js"></script>
 	<script src="query.js"></script>
 	<script src="osmtogeojson.js"></script>
@@ -26,112 +26,14 @@
 
 <body>
 	<div class="mapUI">
-		<a href="#" class="floatIcon floatSplLoc">
-			<i class="fa fa-map-marker my-float"></i>
+		<a href="#" onclick="toggleSwitch()" class="floatIcon toggleSwitch" id="toggleOff">
+			<i class="fa fa-toggle-off my-float"></i>
 		</a>
+		<a href="#" onclick="toggleSwitch()" class="floatIcon toggleSwitch" id="toggleOn">
+			<i class="fa fa-toggle-on my-float"></i>
+		</a>
+
 		<div class="body">
-			<div class="iconSec">
-				<div id="searchAndSet">
-					<a href="#" onclick="showSearchBox()" class="floatFlexIcon">
-						<i class="fa fa-search my-float"></i>
-					</a>
-					<a href="#" class="floatFlexIcon">
-						<i class="fa fa-cog my-float"></i>
-					</a>
-				</div>
-
-				<a href="#" onclick="test()" class="floatIcon floatLoc" id="floatLoc">
-					<i class="fa fa-map-marker my-float"></i>
-				</a>
-			</div>
-
-
-			<div class="scheduleBox" id="_scheduleBox">
-				<div class="dateBox">
-					<h4 id="DATE">Today,14 Dec,2021</h4>
-					<div id="A"><a href="#" onclick="javascript:A()">Change Date</a></div>
-					<button type="button" class="cross" onclick="closeBox('_scheduleBox')">X</button>
-				</div>
-				<div class="scheduleTable">
-					<table>
-						<tr>
-							<td class="timeBox">
-								<h4>10:00 AM</h4>
-								<div class="timing"></div>
-							</td>
-							<td>
-								<div class="contentBox">
-									<div class="nameTd">
-										<h4>Delia Nelson</h4>
-									</div>
-									<div class="roleTd">
-										<li><span>Lead</span></li>
-									</div>
-								</div>
-								<br>
-								<div class="addr">126,Nariman Point Road, Bangalore</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="timeBox">
-								<h4>10:30 AM</h4>
-								<div class="timing">10:30 AM-11:30 AM</div>
-							</td>
-							<td>
-								<div class="contentBox">
-									<div class="nameTd">
-
-										<h4>Henrietta Murray</h4>
-									</div>
-									<div class="roleTd">
-										<li><span>Lead</span></li>
-									</div>
-								</div>
-								<br>
-								<div class="addr">Plot No 54, C 6,Rama Road,Bangalore</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="timeBox">
-								<h4>12:30 PM</h4>
-								<div class="timing">12:30 PM-01:25 PM</div>
-							</td>
-							<td>
-								<div class="contentBox">
-									<div class="nameTd">
-
-										<h4>Eva Blair</h4>
-									</div>
-									<div class="roleTd">
-										<li><span>Contact</span></li>
-									</div>
-								</div>
-								<br>
-								<div class="addr">31,Navghar Phatak,Bhayander,Bangalore</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="timeBox">
-								<h4>02:20 PM</h4>
-								<div class="timing"></div>
-							</td>
-							<td>
-								<div class="contentBox">
-									<div class="nameTd">
-										<h4>Helen Kelly</h4>
-									</div>
-									<div class="roleTd">
-										<li><span>Lead</span></li>
-									</div>
-								</div>
-								<br>
-								<div class="addr">No.5,Plot No. 35,Vini Chs Ltd,Bangalore</div>
-							</td>
-						</tr>
-					</table>
-				</div>
-
-			</div>
 
 			<div class="countryBox" id="_countryBox">
 				<div class="countryTable" id="_countryTable">
@@ -182,92 +84,10 @@
 
 			</div>
 
-			<!-- <div class="nameBox"> -->
-			<div class="nameBox" style="display:none;">
-				<div class="trackIcon">
-					<label for="Menu">
-						<span onclick="javascript:closeAllBox() ">
-							<img src="tracking1.png" onmouseover="javascript:showArrowDown()" onmouseout="javascript:hideArrowDown()">
-							<i class="arrow down" id="_arrowDown"></i>
-						</span>
-					</label>
-					<input type="checkbox" id="Menu">
-					<ul class="slide">
-						<a href="#" onclick="javascript:openBox('_scheduleBox')">
-							<li><i class="fa fa-map-marker formIcon"></i>Tracking</li>
-						</a>
-						<a href="#" onclick="javascript:openBox('_countryBox')">
-							<li><i class="fa fa-map-marker formIcon"></i>Countries</li>
-						</a>
-						<a href="#" onclick="javascript:openBox('_scheduleBox')">
-							<li><i class="fa fa-map-marker formIcon"></i>Tracking</li>
-						</a>
-						<a href="#" onclick="javascript:openBox('_scheduleBox')">
-							<li><i class="fa fa-map-marker formIcon"></i>Tracking</li>
-						</a>
-					</ul>
-				</div>
-				<div class="infoBox">
-					<div class="names" id="names">
-						<label for="nameDropdown">
-							<div id="name" class="namesDrop">
-								Mina Robbins<i class="arrowdown" id="_arrowDown"></i>
-							</div>
-						</label>
-						<input type="checkbox" id="nameDropdown" onclick="colorToggle('nameSlide',0)">
-						<div class="nameSlide" id="nameSlide">
-							<h5>NAMES VIEWS</h5>
-							<a href="#" onclick="showName('Mina Robbins','nameDropdown','nameSlide',0)">
-								<li><i>&check;</i>Mina Robbins</li>
-							</a>
-							<a href="#" onclick="showName('Delia Nelson','nameDropdown','nameSlide',1)">
-								<li><i>&check;</i>Delia Nelson</li>
-							</a>
-							<a href="#" onclick="showName('Eva Blair','nameDropdown','nameSlide',2)">
-								<li><i>&check;</i>Eva Blair</li>
-							</a>
-							<a href="#" onclick="showName('Helen Kelly','nameDropdown','nameSlide',3)">
-								<li><i>&check;</i>Helen Kelly</li>
-							</a>
-						</div>
-					</div>
-					<div class="visitLive">
-						<div class="visits">
-							<i class="fas fa-hotel"></i><br>
-							Visits
-						</div>
-						<div class="vertical"></div>
-						<div class="live">
-							<i class="fas fa-location-arrow"></i><br>
-							Live
-						</div>
-					</div>
-				</div>
-
-
-			</div>
-
-
-			<div class="searchBox" id="_searchBox">
-				<form action="/action_page.php">
-					<input type="text" placeholder="Search.." name="search">
-					<button type="submit"><i class="fa fa-search"></i></button>
-				</form>
-			</div>
-
 			<div class="loadingBox" id="_loadingBox">
 				<div class="pin" id="pin"></div>
 				<div class="pulse" id="pulse"></div>
 				<h3 id="_loadingScript"></h3>
-			</div>
-
-			<div class="PoI">
-				<form action="#">
-					<select name="namesDrop" id="_namesDrop">
-						<option value="PointOfInterest">Point of interest</option>
-						<option value="home">home</option>
-					</select>
-				</form>
 			</div>
 
 
@@ -294,8 +114,8 @@
 
 		function showAirport(coordinateArray) {
 			console.log(coordinateArray);
-			try{
-				console.log(typeof(coordinateArray[0][0]));
+			try {
+				console.log(typeof (coordinateArray[0][0]));
 				for (let i = 0; i < coordinateArray.length; i++) {
 					for (let k = 0; k < coordinateArray[i].length; k++) {
 						let temp = coordinateArray[i][k][0];
@@ -305,7 +125,7 @@
 					showInZoom(coordinateArray[i]);
 				}
 			}
-			catch{
+			catch {
 				var temp = [coordinateArray[1], coordinateArray[0]];
 				coordinateArray = [temp];
 				showInZoom(coordinateArray);
@@ -319,7 +139,7 @@
 			map.loadMap();
 			map.onLoad(function () {
 
-				
+
 				var zMapsShape = new ZMapsShape('shapeId', ZMapsShapeType.Polygon);
 				zMapsShape.setCoordinatesArray(coordinateArray);
 

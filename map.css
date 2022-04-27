@@ -350,11 +350,11 @@
 
 .countryBox {
     overflow-y: scroll;
-    height: 400px;
+    height: 93%;
     /* display: none; */
     position: fixed;
     min-width: 290px;
-    width: calc(27% - 20px);
+    width: calc(37% - 20px);
     /* top: 150px; */
     padding: 10px;
     padding-top: 0px;
@@ -365,9 +365,10 @@
     z-index: 1;
 }
 
-.countriesHeader{
+.countriesHeader {
     padding: 20px;
 }
+
 .countryBox table {
     border-collapse: separate;
     border-spacing: 0px 10px;
@@ -400,24 +401,21 @@
 }
 
 .countryBox td {
+    /* text-align: center; */
+    min-width: 45px;
+}
+
+#_countryName {
     text-align: center;
 }
 
-.nOfCountries {
-    text-align: center;
-}
-
-#_countryName{
-    text-align: center;
-}
-.airportContent{
+.airportContent {
     display: none;
 }
 
 #searchAndSet {
     position: fixed;
     top: 25px;
-    ;
     right: 25px;
     width: 80px;
     height: 80px;
@@ -438,9 +436,9 @@
     z-index: 1;
 }
 
-.backBtn{
+.backBtn {
     align-items: center;
-    display: block; 
+    display: block;
     top: 10px;
     width: 35px;
     height: 35px;
@@ -516,6 +514,23 @@
     bottom: 33px;
     right: 25px;
     background-color: #177dc1
+}
+
+#toggleOn {
+    display: block;
+    color: #177dc1;
+}
+
+#toggleOff {
+    display: none;
+    color: black;
+}
+
+.toggleSwitch {
+
+    top: 25px;
+    right: 25px;
+    color: black;
 }
 
 .my-float {
@@ -682,15 +697,17 @@
 .loadingBox {
     color: #312783;
     right: 50%;
-    position:fixed;
+    position: fixed;
     top: 50%;
     left: 50%;
     width: 240px;
     height: 110px;
-    margin-top: -55px; /*set to a negative number 1/2 of your height*/
-    margin-left: -120px; /*set to a negative number 1/2 of your width*/
-    z-index: 3;  
-    display: none; 
+    margin-top: -55px;
+    /*set to a negative number 1/2 of your height*/
+    margin-left: -120px;
+    /*set to a negative number 1/2 of your width*/
+    z-index: 3;
+    display: none;
 }
 
 .loadingBox h3 {
