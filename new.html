@@ -7,6 +7,8 @@
 	<title>New Document</title>
 	<script src="Airport.js"></script>
 	<script src="coords.js"></script>
+	<script type="text/javascript" src="coords.json"></script>
+	<script type="text/javascript" src="features.json"></script>
 	<script src="query.js"></script>
 	<script src="osmtogeojson.js"></script>
 	<link rel="stylesheet" href="map.css" />
@@ -62,7 +64,7 @@
 							<thead class='nOfCountries'>
 								<td>
 									<h3>
-										<a href="#" onclick="printCountryTable()" class="backBtn">
+										<a href="#" onclick="printCountryTable(countries)" class="backBtn">
 											<i class="fa fa-arrow-left my-float"></i>
 										</a>
 									</h3>
@@ -96,7 +98,6 @@
 	</div>
 	<div id='MapdivId'></div>
 	<script>
-		// window.onload(printCountryTable());
 		var features;
 		var apiKey = 'ZMapsExamplesWeb-73f269cc3db5c26abb9a6b58b33e7452';
 		var zMapsSdk = new ZMapsSDK();
@@ -109,7 +110,7 @@
 			var map = new ZMap('MapdivId', zMapsSdk);
 			var country;
 			map.loadMap();
-			printCountryTable();
+			printCountryTable(countries);
 		}
 
 		function showAirport(coordinateArray) {
@@ -157,9 +158,8 @@
 
 		}
 
-		function showAirports(country) {
+		function showAirports(country, num) {
 			var map = new ZMap('MapdivId', zMapsSdk);
-			var country;
 			map.loadMap();
 			map.loadMap();
 			map.onLoad(function () {
@@ -167,7 +167,8 @@
 				var Markers = [];
 				var latLonArray = [];
 				var idCode;
-				features = osmtogeojson(hardCodeData()).features;
+				console.log(airportData[num], num, country)
+				features = airportData[num].features;
 				console.log(features);
 				printAirportTable(country, features);
 				console.log()
@@ -189,9 +190,7 @@
 				closeloading();
 
 			});
-
 		}
-
 	</script>
 </body>
 

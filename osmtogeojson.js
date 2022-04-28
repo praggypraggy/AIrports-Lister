@@ -1773,3 +1773,5 @@
     [1]
   )(1);
 });
+
+// export default osmtogeojson;
