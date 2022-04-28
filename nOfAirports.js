@@ -1,82 +1,19 @@
 import fs from 'fs';
-import fetch from 'node-fetch';
-import { Headers } from 'node-fetch';
-import osmtogeojson from './osmtogeojson.js';
-var fileWriter = JSON.parse(fs.readFileSync('./features.json'));
-console.log(fileWriter)
+// var fileWriter = JSON.parse(fs.readFileSync('./features.json'));
+// console.log(fileWriter)
 var countries = JSON.parse(fs.readFileSync('./coords.json'));
 
 var Null = {
   "type": "FeatureCollection",
   "features": []
 }
-function writeFile(fileWriter) {
-  fs.writeFileSync('./features.json', JSON.stringify(fileWriter), err => {
-    if (err) {
-      console.log('Error writing file', err)
-    } else {
-      console.log('Successfully wrote file')
-    }
-  })
-}
 
 
-
-async function getInfo() {
-  var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
-  for (let x = 0; x < 5; x++) {
-    if (countries[x].osm_id === 0 || countries[x].airportCount === 0) {
-      var url = `https://nominatim.openstreetmap.org/search.php?country=` + String(countries[x].name) + `&polygon_geojson=3&format=jsonv2`;
-      try {
-        var result = await (await fetch(url, requestOptions)).text();
-        result = JSON.parse(result);
-        var idCode = result[0].osm_id;
-        countries[x].osm_id = idCode;
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-        myHeaders.append("Sec-Fetch-Mode", "cors");
-        var keyValue = '["aeroway"="aerodrome"]["iata"]';
-        var reqBody = `
-        [out:json];
-        area(id:`+ String(idCode + 3600000000) + `)->.searchArea;
-        (
-          node`+ keyValue + `(area.searchArea);
-          way`+ keyValue + `(area.searchArea);
-          relation`+ keyValue + `(area.searchArea);
-        );
-        out body;
-        >;
-        out skel qt;
-        `;
-        var urlencoded = new URLSearchParams();
-        urlencoded.append(
-          "data",
-          reqBody
-        );
-        var requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: urlencoded,
-          redirect: 'follow'
-        };
-        var data = await (await fetch("https://overpass-api.de/api/interpreter", requestOptions)).text();
-        data = osmtogeojson(JSON.parse(data));
-        countries[x].airportCount = data.features.length;
-        fileWriter[x] = data;
-        writeFile(fileWriter);
-      }
-      catch (err) {
-        fileWriter[x] = Null;
-        writeFile(fileWriter)
-      }
-      console.log(x, countries[x].name, countries[x].osm_id, countries[x].airportCount);
-
-    }
+var code = ["AF","AX","AL","DZ","AS","AD","AO","AI","AQ","AG","AR","AM","AW","AU","AT","AZ","BS","BH","BD","BB","BY","BE","BZ","BJ","BM","BT","BO","BQ","BA","BW","BV","BR","IO","BN","BG","BF","BI","CV","KH","CM","CA","KY","CF","TD","CL","CN","CX","CC","CO","KM","CG","CD","CK","CR","CI","HR","CU","CW","CY","CZ","DK","DJ","DM","DO","EC","EG","SV","GQ","ER","EE","ET","FK","FO","FJ","FI","FR","GF","PF","TF","GA","GM","GE","DE","GH","GI","GR","GL","GD","GP","GU","GT","GG","GN","GW","GY","HT","HM","VA","HN","HK","HU","IS","IN","ID","IR","IQ","IE","IM","IL","IT","JM","JP","JE","JO","KZ","KE","KI","KP","KR","KW","KG","LA","LV","LB","LS","LR","LY","LI","LT","LU","MO","MG","MW","MY","MV","ML","MT","MH","MQ","MR","MU","YT","MX","FM","MD","MC","MN","ME","MS","MA","MZ","MM","NA","NR","NP","NL","NC","NZ","NI","NE","NG","NU","NF","MK","MP","NO","OM","PK","PW","PS","PA","PG","PY","PE","PH","PN","PL","PT","PR","QA","RE","RO","RU","RW","BL","SH","KN","LC","MF","PM","VC","WS","SM","ST","SA","SN","RS","SC","SL","SG","SX","SK","SI","SB","SO","ZA","GS","SS","ES","LK","SD","SR","SJ","SZ","SE","CH","SY","TW","TJ","TZ","TH","TL","TG","TK","TO","TT","TN","TR","TM","TC","TV","UG","UA","AE","GB","US","UM","UY","UZ","VU","VE","VN","VG","VI","WF","EH","YE","ZM","ZW"];
+function putCode(){
+  for (let i = 0; i < countries.length; i++) {
+    countries[i].countryCode = String(code[i]);
   }
   fs.writeFileSync('./coords.json', JSON.stringify(countries));
-  console.log("all done boss")
 }
-getInfo();
+putCode();

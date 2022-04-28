@@ -3,7 +3,6 @@ function printCountryTable(countries) {
   document.getElementById("_airportContent").style.display = "none";
   document.getElementById("_countryTable").style.display = "block";
 
-  // var  = JSON.parse(fs.readFileSync('./coords.json'));
   var apnd = document.getElementById("_countrytBody");
   apnd.innerHTML = ``;
   for (var i = 0; i < countries.length; i++) {
@@ -11,6 +10,7 @@ function printCountryTable(countries) {
     <tr onclick="showAirports('`+ countries[i].name + `',` + parseInt(i) + `)">
       <td>`+ parseInt(i + 1) + `</td>
       <td>`+ countries[i].dName + `</td>
+      <td>`+ countries[i].countryCode + `</td>
       <td class='nOfCountries'>`+ countries[i].airportCount + `</td>
     </tr>
     `;
@@ -59,7 +59,7 @@ function closeBox(id) {
 function openBox(id) {
   document.getElementById(id).style.display = "block";
   if (id === "_countryBox") {
-    printCountryTable();
+    printCountryTable(countries);
   }
 }
 

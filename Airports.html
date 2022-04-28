@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Document</title>
+  <title>Airport Document</title>
   <script src="Airport.js"></script>
   <script src="coords.js"></script>
   <script type="text/javascript" src="coords.json"></script>
@@ -46,6 +46,9 @@
               </td>
               <td>
                 <h3>Countries</h3>
+              </td>
+              <td>
+                <h3>Country Code</h3>
               </td>
               <td>
                 <h3>No. of Airports</h3>
@@ -114,33 +117,37 @@
     }
 
     function showAirport(coordinateArray) {
-      console.log(coordinateArray);
-      try {
-        console.log(typeof (coordinateArray[0][0]));
+      if (typeof (coordinateArray[0]) === "number") {
+        var temp = [coordinateArray[1], coordinateArray[0]];
+        coordinateArray = [];
+        coordinateArray.push(temp)
+        var Marker = new ZMarker('id', temp[0], temp[1]);
+        showInZoom(coordinateArray, Marker);
+        console.log(coordinateArray);
+
+      }
+      else {
         for (let i = 0; i < coordinateArray.length; i++) {
           for (let k = 0; k < coordinateArray[i].length; k++) {
             let temp = coordinateArray[i][k][0];
             coordinateArray[i][k][0] = coordinateArray[i][k][1];
             coordinateArray[i][k][1] = temp;
           }
-          showInZoom(coordinateArray[i]);
+          showInZoom(coordinateArray[i], 'false');
+
         }
-      }
-      catch {
-        var temp = [coordinateArray[1], coordinateArray[0]];
-        coordinateArray = [temp];
-        showInZoom(coordinateArray);
       }
 
     }
 
-    function showInZoom(coordinateArray) {
+    function showInZoom(coordinateArray, Marker) {
 
       var map = new ZMap('MapdivId', zMapsSdk);
       map.loadMap();
       map.onLoad(function () {
 
-
+        if (Marker !== 'false')
+          map.addMarker(Marker);
         var zMapsShape = new ZMapsShape('shapeId', ZMapsShapeType.Polygon);
         zMapsShape.setCoordinatesArray(coordinateArray);
 
@@ -155,7 +162,6 @@
         map.fitToShapes(zMapsShape, 20);
 
       });
-
     }
 
     function showAirports(country, num) {
