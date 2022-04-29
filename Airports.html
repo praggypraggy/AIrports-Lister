@@ -7,6 +7,7 @@
   <title>Airport Document</title>
   <script src="Airport.js"></script>
   <script src="coords.js"></script>
+  <script src="zMap.js"></script>
   <script type="text/javascript" src="coords.json"></script>
   <script type="text/javascript" src="features.json"></script>
   <script src="query.js"></script>
@@ -18,6 +19,8 @@
     integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
   <script src='https://js.zohostatic.com/maps/v8_7_0/js/zmaps-sdk-min.js'></script>
   <link rel='stylesheet' type='text/css' href='https://css.zohostatic.com/maps/v8_7_0/styles/zmaps-sdk-min.css' />
+  <link type="image/png" sizes="16x16" rel="icon" href="./icons8-airplane-take-off-16-1.png">
+
   <style>
     #MapdivId {
       height: 100%;
@@ -61,17 +64,18 @@
 
         </div>
         <div class="airportContent" id="_airportContent">
-          <h1 id="_countryName"></h1>
+          <div class="countryNameDiv">
+            <h1 id="_countryName">
+              <a href="#" onclick="printCountryTable(countries)" class="floatIcon backButton">
+                <i class="fa fa-arrow-left my-float"></i>
+              </a>
+            </h1>
+          </div>
           <div class="airportTable">
             <table>
               <thead class='nOfCountries'>
                 <td>
-                  <h3>
-                    <a href="#" onclick="printCountryTable(countries)" class="backBtn">
-                      <i class="fa fa-arrow-left my-float"></i>
-                    </a>
-                  </h3>
-
+                  <h3>Slno</h3>
                 </td>
                 <td>
                   <h3>Airports</h3>
@@ -89,18 +93,15 @@
 
       </div>
 
-      <div class="loadingBox" id="_loadingBox">
-        <div class="pin" id="pin"></div>
-        <div class="pulse" id="pulse"></div>
-        <h3 id="_loadingScript"></h3>
-      </div>
-
+      <div id="_loadingBox"></div>
 
     </div>
 
   </div>
   <div id='MapdivId'></div>
   <script>
+
+    const delay = ms => new Promise(res => setTimeout(res, ms));
     var features;
     var apiKey = 'ZMapsExamplesWeb-73f269cc3db5c26abb9a6b58b33e7452';
     var zMapsSdk = new ZMapsSDK();
@@ -108,95 +109,7 @@
 
     zMapsSdk.init(initCallback);
 
-    function initCallback() {
-
-      var map = new ZMap('MapdivId', zMapsSdk);
-      var country;
-      map.loadMap();
-      printCountryTable(countries);
-    }
-
-    function showAirport(coordinateArray) {
-      if (typeof (coordinateArray[0]) === "number") {
-        var temp = [coordinateArray[1], coordinateArray[0]];
-        coordinateArray = [];
-        coordinateArray.push(temp)
-        var Marker = new ZMarker('id', temp[0], temp[1]);
-        showInZoom(coordinateArray, Marker);
-        console.log(coordinateArray);
-
-      }
-      else {
-        for (let i = 0; i < coordinateArray.length; i++) {
-          for (let k = 0; k < coordinateArray[i].length; k++) {
-            let temp = coordinateArray[i][k][0];
-            coordinateArray[i][k][0] = coordinateArray[i][k][1];
-            coordinateArray[i][k][1] = temp;
-          }
-          showInZoom(coordinateArray[i], 'false');
-
-        }
-      }
-
-    }
-
-    function showInZoom(coordinateArray, Marker) {
-
-      var map = new ZMap('MapdivId', zMapsSdk);
-      map.loadMap();
-      map.onLoad(function () {
-
-        if (Marker !== 'false')
-          map.addMarker(Marker);
-        var zMapsShape = new ZMapsShape('shapeId', ZMapsShapeType.Polygon);
-        zMapsShape.setCoordinatesArray(coordinateArray);
-
-        zMapsShape.setFill(true);
-        zMapsShape.setStrokeColor('black');
-        zMapsShape.setFillColor('rgba(66, 153, 245,0.3)');
-        zMapsShape.setStrokeWidth(2);
-        zMapsShape.setShapeOpacity(1);
-
-        map.addShape(zMapsShape);
-
-        map.fitToShapes(zMapsShape, 20);
-
-      });
-    }
-
-    function showAirports(country, num) {
-      var map = new ZMap('MapdivId', zMapsSdk);
-      map.loadMap();
-      map.loadMap();
-      map.onLoad(function () {
-        openloading('fetching nodes from API...');
-        var Markers = [];
-        var latLonArray = [];
-        var idCode;
-        console.log(airportData[num], num, country)
-        features = airportData[num].features;
-        console.log(features);
-        printAirportTable(country, features);
-        console.log()
-        for (var i = 0; i < features.length; i++) {
-          if (features[i].geometry.type === "Point") {
-            latLonArray.push([features[i].geometry.coordinates[1], features[i].geometry.coordinates[0]]);
-          }
-          else {
-            latLonArray.push([features[i].geometry.coordinates[0][0][1], features[i].geometry.coordinates[0][0][0]]);
-          }
-        }
-        for (var i = 0; i < latLonArray.length; i++) {
-          Markers[i] = new ZMarker(i, latLonArray[i][0], latLonArray[i][1]);
-          Markers[i].setCustomInfoWindowView('View');
-        }
-        var ZMapsMarkerOptionCluster = new ZMapsMarkerOption(ZMapsMarkerType.Cluster);
-        var response = map.addMarkers('ClusterId', Markers, ZMapsMarkerOptionCluster);
-
-        closeloading();
-
-      });
-    }
+    
   </script>
 </body>
 
