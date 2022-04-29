@@ -131,7 +131,7 @@ function showAirports(country, num) {
       Markers[i].width = 25;
       Markers[i].height = 25;
       Markers[i].setIcon(url);
-      Markers[i].setCustomInfoWindowView(airportName);
+      Markers[i].setCustomInfoWindowView('<a href=# onclick="showAirport(features['+parseInt(i)+'])" class="markerName">'+airportName+'</a>');
     }
     var ZMapsMarkerOptionCluster = new ZMapsMarkerOption(ZMapsMarkerType.Cluster);
     var response = map.addMarkers('ClusterId', Markers, ZMapsMarkerOptionCluster);

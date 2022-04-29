@@ -401,7 +401,10 @@
     background-color: white;
     text-align: center;
 }
-
+.markerName{
+    text-decoration: none;
+    color: black;
+}
 .countryBox thead tr:hover {
     color: black;
     background-color: white;
