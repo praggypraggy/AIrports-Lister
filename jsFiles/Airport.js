@@ -2,6 +2,7 @@ var toggleSwitchVar = 1;
 
 
 function printCountryTable(countries) {
+  document.getElementById("_countryBox").scrollTop = 0;
   document.getElementById("_airportContent").style.display = "none";
   document.getElementById("_countryTable").style.display = "block";
   document.getElementById("_countryName").innerHTML = `<a href="#" onclick="printCountryTable(countries)" class="floatIcon backButton">
@@ -24,6 +25,7 @@ function printCountryTable(countries) {
 
 
 function printAirportTable(countryName, features) {
+  document.getElementById("_countryBox").scrollTop = 0;
   document.getElementById("_airportContent").style.display = "block";
   document.getElementById("_countryTable").style.display = "none";
   document.getElementById("_countryName").innerHTML += countryName;

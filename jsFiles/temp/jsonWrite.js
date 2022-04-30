@@ -1,7 +1,7 @@
 import fs from 'fs';
 import fetch from 'node-fetch';
 import { Headers } from 'node-fetch';
-import osmtogeojson from './osmtogeojson.js';
+import osmtogeojson from '../osmtogeojson.js';
 var fileWriter = JSON.parse(fs.readFileSync('./features.json'));
 console.log(fileWriter)
 var countries = JSON.parse(fs.readFileSync('./coords.json'));
